@@ -4,10 +4,10 @@ LDFLAGS  = -lSDL2
 
 srcdir=src/
 
-all: tdemo
+all: openstrangeworld
 
-tdemo: main.o map.o
-	$(CC) main.o map.o -o tdemo $(LDFLAGS)
+openstrangeworld: main.o map.o event.o
+	$(CC) main.o map.o event.o -o openstrangeworld $(LDFLAGS)
 
 main.o: $(srcdir)main.c
 	$(CC) $(srcdir)main.c -c -o main.o $(CFLAGS)
@@ -16,6 +16,9 @@ main.o: $(srcdir)main.c
 map.o: $(srcdir)map.c
 	$(CC) $(srcdir)map.c -c -o map.o $(CFLAGS)
 
+event.o: $(srcdir)event.c
+	$(CC) $(srcdir)event.c -c -o event.o $(CFLAGS)
+
 clean:
-	rm *.o tdemo
+	rm *.o openstrangeworld
 

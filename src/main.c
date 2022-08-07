@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <SDL2/SDL.h>
 
 #include "map.h"
+#include "event.h"
+
+bool windowIsOpen = false;
 
 int main(int argc, char **argv) {
     
@@ -26,8 +30,11 @@ int main(int argc, char **argv) {
         exit(1);
     }
     
+    windowIsOpen = true;
     
-    SDL_Delay(1000);
+    while(windowIsOpen) {
+        processEvents();
+    }
     
     
     SDL_Quit();
