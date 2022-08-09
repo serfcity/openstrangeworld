@@ -40,9 +40,12 @@ void deleteElementList(list_int32_t* lst, int id) {
             lst = lst->previous;
             list_int32_t* nowThis = lst->next;
             lst->next = nowNext;
-            lst = nowNext;
-            lst->previous = nowPrevious;
+            if(nowNext != NULL) {
+                lst = nowNext;
+                lst->previous = nowPrevious;
+            }
             free(nowThis);
+            return;
         }
         lst = lst->next;
         it++;
@@ -58,6 +61,9 @@ int atList(list_int32_t* lst, int id) {
         lst = lst->next;
         it++;
     } while(lst->next != NULL);
+    if(it == id) {
+        return lst->value;
+    }
     perror("Out of list");
     exit(1);
 }
