@@ -2,14 +2,15 @@
 #define WINDOW_H
 
 #include <SDL2/SDL.h>
-#include <uchar.h>
+#include <stdbool.h>
 
 typedef struct window_t {
     SDL_Window* SDLPtr;
-    char32_t name[256];
+    char name[256];
+    bool isOpen;
 } window_t;
 
-window_t* createWindow(char32_t*);
+window_t* createWindow(char*);
 void destroyWindow(window_t*);
 
 #endif

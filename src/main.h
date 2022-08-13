@@ -3,6 +3,6 @@
 
 #include <stdbool.h>
 
-extern bool windowIsOpen;
+//extern bool windowIsOpen;
 
 #endif

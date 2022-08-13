@@ -1,6 +1,8 @@
 #ifndef EVENT_H
 #define EVENT_H
 
-void processEvents();
+#include "window.h"
+
+void processEvents(window_t*);
 
 #endif

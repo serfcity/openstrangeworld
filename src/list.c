@@ -31,26 +31,32 @@ int pushBackList(list_int32_t* lst, int32_t value) {
     return 0;
 }
 
+
 void deleteElementList(list_int32_t* lst, int id) {
     int it = 0;
-    while(lst->next != NULL) {
+    list_int32_t *pre, *nxt, *this;
+    do {
+        pre = lst->previous;
+        nxt = lst->next;
+        this = lst;
         if(it == id) {
-            list_int32_t* nowNext = lst->next;
-            list_int32_t* nowPrevious = lst->previous;
-            lst = lst->previous;
-            list_int32_t* nowThis = lst->next;
-            lst->next = nowNext;
-            if(nowNext != NULL) {
-                lst = nowNext;
-                lst->previous = nowPrevious;
+            lst = nxt;
+                lst->previous = pre;
+            if(pre != NULL) {
+                lst = pre;
+                lst->next = nxt;
             }
-            free(nowThis);
+            lst = this;
+            free(lst);
             return;
-        }
-        lst = lst->next;
+      } 
         it++;
-    }
+        lst = lst->next;
+    } while(lst->next != NULL);
+    perror("Out of list");
+    exit(1);
 }
+
 
 int atList(list_int32_t* lst, int id) {
     int it = 0;
@@ -68,11 +74,14 @@ int atList(list_int32_t* lst, int id) {
     exit(1);
 }
 
+
 void destroyList(list_int32_t* lst) {
-    free(lst);
     while(lst->next != NULL) {
         lst = lst->next;
-        free(lst);
+        if(lst->previous != NULL) {
+            free(lst->previous);
+        }
     }
+    free(lst);
 }
 
