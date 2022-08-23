@@ -3,6 +3,7 @@
 #include <memory.h>
 #include <stdint.h>
 #include "list.h"
+#include "main.h"
 
 list_int32_t* createList() {
     list_int32_t* newList = malloc(sizeof(list_int32_t));
@@ -10,6 +11,7 @@ list_int32_t* createList() {
         perror("Malloc error in list");
         return NULL;
     }
+    newList->value = 0;
     newList->previous = NULL;
     newList->next = NULL;
     return newList;
@@ -35,6 +37,13 @@ int pushBackList(list_int32_t* lst, int32_t value) {
 void deleteElementList(list_int32_t* lst, int id) {
     int it = 0;
     list_int32_t *pre, *nxt, *this;
+    
+    #ifdef WARNING
+    if(id == 0) {
+        perror("Warning: delete 0 element from list. You may use broken pointer yet.");
+    }
+    #endif
+    
     do {
         pre = lst->previous;
         nxt = lst->next;

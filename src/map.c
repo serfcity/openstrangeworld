@@ -3,6 +3,8 @@
 #include <memory.h>
 #include <stdint.h>
 #include "map.h"
+#include "list.h"
+#include "main.h"
 
 map_t* createMap(int x, int y) {
     map_t* newMap = malloc(sizeof(map_t));
@@ -31,15 +33,23 @@ map_t* createMap(int x, int y) {
             return NULL;
     }
     
-    newMap->mapHeroes = malloc(sizeof(uint32_t*) * x * y);
+    newMap->mapHeroes = malloc(sizeof(list_int32_t**) * x * y);
     
     if(newMap->mapHeroes == NULL)
         return NULL;
     
     for(int i = 0; i < x; i++) {
-        newMap->mapHeroes[i] = malloc(sizeof(uint32_t) * y);
+        newMap->mapHeroes[i] = malloc(sizeof(list_int32_t*) * y);
         if(newMap->mapHeroes[i] == NULL)
             return NULL;
+    }
+    
+    for(int i = 0; i < x; i++) {
+        for(int j = 0; j < y; j++) {
+            newMap->mapHeroes[i][j] = createList();
+            if(newMap->mapHeroes[i][j] == NULL)
+                return NULL;
+        }
     }
     
     return newMap;
